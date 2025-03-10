@@ -1,0 +1,26 @@
+{
+  "name": "spotify-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manueldh/spotify-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manueldh/spotify-scraper/issues"
+  },
+  "homepage": "https://github.com/Manueldh/spotify-scraper#readme",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.12.1",
+    "nodemon": "^3.1.9",
+    "spotify-web-api-node": "^5.0.2"
+  }
+}
