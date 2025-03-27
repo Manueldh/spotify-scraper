@@ -1,5 +1,6 @@
 require('dotenv').config() 
 const SpotifyWebApi = require('spotify-web-api-node')
+const spotifyPreviewFinder = require('spotify-preview-finder');
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -15,16 +16,14 @@ async function getAccessToken() {
     spotifyApi.setAccessToken(accessToken);
     console.log('✅ Access token verkregen:', accessToken);
 
-    // Stel een timer in om het token te vernieuwen vóórdat het verloopt
     setTimeout(getAccessToken, (data.body['expires_in'] - 60) * 1000);
 
-    scrapeSpotify('techno')
+    scrapeSpotify('rock')
   } catch (err) {
     console.error('❌ Fout bij verkrijgen access token:', err);
   }
 }
 
-// Haal het eerste token op bij het starten van de server
 getAccessToken();
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
@@ -38,7 +37,6 @@ const client = new MongoClient(uri, {
     }
 })
 
-// Try to open a database connection
 client.connect()
   .then(() => {
     console.log('Database connection established')
@@ -56,7 +54,7 @@ function getRandomItems(arr, num) {
       let randomIndex = Math.floor(Math.random() * arr.length);
       if (!usedIndexes.has(randomIndex)) {
           usedIndexes.add(randomIndex);
-          result[arr[randomIndex]] = Math.floor(Math.random() * 5) + 1; // Random number between 1 and 5
+          result[arr[randomIndex]] = Math.floor(Math.random() * 5) + 1;
       }
   }
   return result;
@@ -66,7 +64,7 @@ async function scrapeSpotify(genre) {
   try {
     const instrumentsList = ['acoustic guitar', 'bass guitar', 'electric guitar', 'drums', 'piano', 'violin', 'ukelele', 'saxophone', 'cello', 'trumpet', 'flute', 'accordion'];
     const db = client.db(process.env.DB_NAME);
-    const collection = db.collection('music-data');
+    const collection = db.collection(process.env.DB_COLLECTION);
 
     let uniqueTracks = [];
     let offset = 0;
@@ -80,14 +78,30 @@ async function scrapeSpotify(genre) {
         const existingTrack = await collection.findOne({ spotifyId: track.id });
         if (!existingTrack) {
           const randomInstruments = getRandomItems(instrumentsList, 4);
-          console.log(randomInstruments); // Log the randomInstruments to check its content
+          console.log(randomInstruments);
+
+          let previewUrls = null;
+          try {
+            const previewResult = await spotifyPreviewFinder(track.name, 1); // Limit to 1 preview URL
+            if (previewResult.success && previewResult.results.length > 0) {
+              previewUrls = previewResult.results[0].previewUrls[0] || null;
+            }
+          } catch (err) {
+            console.error(`❌ Error fetching preview URLs for track ${track.name}:`, err.message);
+          }
 
           const savedData = {
             spotifyId: track.id,
             trackName: track.name,
             artist: track.artists.map(artist => artist.name).join(', '),
             genre: genre,
-            difficulty: randomInstruments
+            difficulty: randomInstruments,
+            popularity: track.popularity,
+            album: track.album.name,
+            releaseDate: track.album.release_date,
+            duration: track.duration_ms,
+            albumCover: track.album.images[0]?.url,
+            previewUrls: previewUrls
           };
 
           uniqueTracks.push(savedData);
@@ -100,7 +114,7 @@ async function scrapeSpotify(genre) {
         }
       }
 
-      offset += 50; // Increase the offset to get different results in the next iteration
+      offset += 50;
     }
 
     if (uniqueTracks.length > 0) {
@@ -114,7 +128,7 @@ async function scrapeSpotify(genre) {
 async function saveToDatabase(savedData) {
   try {
     const db = client.db(process.env.DB_NAME);
-    const collection = db.collection('music-data');
+    const collection = db.collection(process.env.DB_COLLECTION);
 
     const result = await collection.insertMany(savedData);
     console.log(`✅ ${result.insertedCount} tracks saved to database`);
