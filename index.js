@@ -18,7 +18,7 @@ async function getAccessToken() {
 
     setTimeout(getAccessToken, (data.body['expires_in'] - 60) * 1000);
 
-    scrapeSpotify('rock')
+    scrapeSpotify('Rock')
   } catch (err) {
     console.error('❌ Fout bij verkrijgen access token:', err);
   }
@@ -46,18 +46,23 @@ client.connect()
     console.log(`For uri - ${uri}`)
   })
 
-function getRandomItems(arr, num) {
-  let result = {};
+function getRandomInstruments(arr, num) {
+  let result = [];
   let usedIndexes = new Set();
-  
-  while (Object.keys(result).length < num) {
-      let randomIndex = Math.floor(Math.random() * arr.length);
-      if (!usedIndexes.has(randomIndex)) {
-          usedIndexes.add(randomIndex);
-          result[arr[randomIndex]] = Math.floor(Math.random() * 5) + 1;
-      }
+
+  while (result.length < num) {
+    let randomIndex = Math.floor(Math.random() * arr.length);
+    if (!usedIndexes.has(randomIndex)) {
+      usedIndexes.add(randomIndex);
+      result.push(arr[randomIndex]);
+    }
   }
   return result;
+}
+
+
+function getRandomDifficulty() {
+  return Math.floor(Math.random() * 5) + 1; // Random number between 1 and 5
 }
 
 async function scrapeSpotify(genre) {
@@ -77,7 +82,8 @@ async function scrapeSpotify(genre) {
       for (const track of tracks) {
         const existingTrack = await collection.findOne({ spotifyId: track.id });
         if (!existingTrack) {
-          const randomInstruments = getRandomItems(instrumentsList, 4);
+          const randomInstruments = getRandomInstruments(instrumentsList, 4); // Get 4 random instruments
+          const randomDifficulty = getRandomDifficulty(); // Get a single random difficulty
           console.log(randomInstruments);
 
           let previewUrls = null;
@@ -95,7 +101,8 @@ async function scrapeSpotify(genre) {
             trackName: track.name,
             artist: track.artists.map(artist => artist.name).join(', '),
             genre: genre,
-            difficulty: randomInstruments,
+            difficulty: randomDifficulty,
+            instruments: randomInstruments,
             popularity: track.popularity,
             album: track.album.name,
             releaseDate: track.album.release_date,
