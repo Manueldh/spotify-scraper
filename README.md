@@ -7,20 +7,20 @@ This Node.js project allows you to fetch tracks from the Spotify API based on a 
 ⸻
 
 🚀 Features
-	•	Retrieves up to 50 unique tracks for a given genre from Spotify.
-	•	Avoids saving duplicate tracks (based on Spotify ID).
-	•	Randomly assigns:
-	•	4 musical instruments from a predefined list.
-	•	A difficulty level between 1 and 5.
-	•	Tries to fetch a 30-second audio preview using spotify-preview-finder.
-	•	Saves the collected track data to a MongoDB database.
+- 	Retrieves up to 50 unique tracks for a given genre from Spotify.
+- 	Avoids saving duplicate tracks (based on Spotify ID).
+-	Randomly assigns:
+-	4 musical instruments from a predefined list.
+-	A difficulty level between 1 and 5.
+-	Tries to fetch a 30-second audio preview using spotify-preview-finder.
+-	Saves the collected track data to a MongoDB database.
 
 ⸻
 
 📦 Requirements
-	•	Node.js (v14 or later)
-	•	A Spotify Developer account (for API credentials)
-	•	A MongoDB database (MongoDB Atlas or local)
+-	Node.js (v14 or later)
+-	A Spotify Developer account (for API credentials)
+-	A MongoDB database (MongoDB Atlas or local)
 
 ⸻
 
@@ -54,14 +54,14 @@ DB_COLLECTION=your_target_collection
 ⸻
 
 🧠 How It Works
-	1.	Authenticates with Spotify using the Client Credentials Flow.
-	2.	Periodically refreshes the access token before expiration.
-	3.	Scrapes the Spotify Web API for tracks in a specific genre.
-	4.	For each new track:
-	•	Checks if the track already exists in the database.
-	•	Assigns random metadata (instruments + difficulty).
-	•	Attempts to get an audio preview URL.
-	•	Stores all relevant info in the MongoDB database.
+1.	Authenticates with Spotify using the Client Credentials Flow.
+2.	Periodically refreshes the access token before expiration.
+3.	Scrapes the Spotify Web API for tracks in a specific genre.
+4.	For each new track:
+    - 	Checks if the track already exists in the database.
+	-	Assigns random metadata (instruments + difficulty).
+	-	Attempts to get an audio preview URL.
+	-	Stores all relevant info in the MongoDB database.
 
 ⸻
 
@@ -97,15 +97,15 @@ By default, it scrapes the genre "Rock" — you can change this by modifying the
 ⸻
 
 🛠 Dependencies
-	•	spotify-web-api-node
-	•	spotify-preview-finder
-	•	mongodb
-	•	dotenv
+-	spotify-web-api-node
+-	spotify-preview-finder
+-	mongodb
+-	dotenv
 
 ⸻
 
 📌 Notes
-	•	The spotify-preview-finder module is used for preview URLs because Spotify’s Web API often doesn’t provide them reliably.
-	•	This scraper currently focuses on a single genre but could be extended to handle multiple genres, user input, or even artist-based queries.
+-	The spotify-preview-finder module is used for preview URLs because Spotify’s Web API often doesn’t provide them reliably.
+-	This scraper currently focuses on a single genre but could be extended to handle multiple genres, user input, or even artist-based queries.
 
 ⸻
