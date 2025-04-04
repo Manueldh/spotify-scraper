@@ -39,15 +39,15 @@ npm install
 	3.	Create a .env file
 Add your credentials in a .env file at the root of the project:
 
-SPOTIFY_CLIENT_ID=your_spotify_client_id
-SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
+SPOTIFY_CLIENT_ID=your_spotify_client_id\
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret\
+SPOTIFY_REDIRECT_URI=http://localhost:8888/callback\
 
-DB_USERNAME=your_db_username
-DB_PASSWORD=your_db_password
-DB_HOST=your_db_host
-DB_NAME=your_db_name
-DB_COLLECTION=your_target_collection
+DB_USERNAME=your_db_username\
+DB_PASSWORD=your_db_password\
+DB_HOST=your_db_host\
+DB_NAME=your_db_name\
+DB_COLLECTION=your_target_collection\
 
 
 
