@@ -41,13 +41,13 @@ Add your credentials in a .env file at the root of the project:
 
 SPOTIFY_CLIENT_ID=your_spotify_client_id\
 SPOTIFY_CLIENT_SECRET=your_spotify_client_secret\
-SPOTIFY_REDIRECT_URI=http://localhost:8888/callback\
+SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
 
 DB_USERNAME=your_db_username\
 DB_PASSWORD=your_db_password\
 DB_HOST=your_db_host\
 DB_NAME=your_db_name\
-DB_COLLECTION=your_target_collection\
+DB_COLLECTION=your_target_collection
 
 
 
@@ -77,18 +77,18 @@ By default, it scrapes the genre "Rock" — you can change this by modifying the
 
 📁 Example Document in MongoDB
 
-{
-  "spotifyId": "123abc456def",
-  "trackName": "Sunset Vibes",
-  "artist": "DJ Flow",
-  "genre": "House",
-  "difficulty": 3,
-  "instruments": ["drums", "bass guitar", "piano", "violin"],
-  "popularity": 65,
-  "album": "Night Life",
-  "releaseDate": "2021-08-13",
-  "duration": 195000,
-  "albumCover": "https://i.scdn.co/image/...",
+{\
+  "spotifyId": "123abc456def",\
+  "trackName": "Sunset Vibes",\
+  "artist": "DJ Flow",\
+  "genre": "House",\
+  "difficulty": 3,\
+  "instruments": ["drums", "bass guitar", "piano", "violin"],\
+  "popularity": 65,\
+  "album": "Night Life",\
+  "releaseDate": "2021-08-13",\
+  "duration": 195000,\
+  "albumCover": "https://i.scdn.co/image/...",\
   "previewUrls": "https://p.scdn.co/mp3-preview/..."
 }
 
