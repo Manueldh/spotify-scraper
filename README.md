@@ -89,7 +89,7 @@ By default, it scrapes the genre "Rock" — you can change this by modifying the
   "releaseDate": "2021-08-13",\
   "duration": 195000,\
   "albumCover": "https://i.scdn.co/image/...",\
-  "previewUrls": "https://p.scdn.co/mp3-preview/..."
+  "previewUrls": "https://p.scdn.co/mp3-preview/..."\
 }
 
 
