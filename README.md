@@ -1,6 +1,4 @@
-Zeker! Hier is een Engelse README.md die uitlegt wat je Spotify-scraper doet, inclusief installatie, gebruik en wat achtergrondinformatie:
-
-⸻
+ ⸻
 
 🎧 Spotify Scraper with MongoDB Integration
 
