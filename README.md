@@ -104,6 +104,26 @@ By default, it scrapes the genre "Rock" — you can change this by modifying the
 
 ⸻
 
+🧠 Optimization Recommendations
+-	Batch insert: Store tracks in bulk (insertMany) instead of one-by-one to improve performance.
+-	Rate limiting: Respect Spotify API limits using a library like bottleneck to avoid throttling.
+-	Caching: Store fetched preview URLs locally to avoid redundant lookups.
+-	Logging: Add a rotating log system (e.g., winston + daily-rotate-file) for long-term usage.
+
+⸻
+
+🔮 Future Iterations
+-	🔄 Multiple genres: Allow genre lists to be passed as an array.
+-	🗣️ User input: Enable CLI prompts to select genres or specify the number of tracks.
+-	🧭 Artist-based queries: Add support for fetching tracks by artist name or ID.
+-	🧪 Unit tests: Add automated testing to ensure scraper stability.
+-	🌐 Web dashboard: Build a frontend to visualize stored data with filters for genre, popularity, etc.
+-	💾 Export options: Add support for CSV/JSON exports of scraped data.
+-	🔁 Scheduled scraping: Integrate a cron job to run the scraper periodically.
+
+⸻
+
+
 📌 Notes
 -	The spotify-preview-finder module is used for preview URLs because Spotify’s Web API often doesn’t provide them reliably.
 -	This scraper currently focuses on a single genre but could be extended to handle multiple genres, user input, or even artist-based queries.
